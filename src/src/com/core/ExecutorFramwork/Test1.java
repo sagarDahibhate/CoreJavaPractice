@@ -20,25 +20,34 @@ public class Test1 {
 		Thread t2 = new Thread(tg, "second Thread");
 
 		MyThread mt = new MyThread();
-		mt.start();
+		//mt.start();
 
-		ThreadGroup tg1 = new ThreadGroup(tg, "ThreadGroup - 01");
-		ThreadGroup tg2 = new ThreadGroup(tg, "ThreadGroup - 02");
+		ThreadGroup tg1 = new ThreadGroup( tg,"ThreadGroup - 01");
+		ThreadGroup tg2 = new ThreadGroup( tg,"ThreadGroup - 02");
 
 		ThreadGroup[] th04 = new ThreadGroup[tg.activeGroupCount()];
 		tg.enumerate(th04);
 
 		for (ThreadGroup t : th04) {
-			System.out.println("name of the thread " + t.getName());
+		  System.out.println("name of the thread " + t.getName());
 		}
 		
-//		ThreadGroup group=Thread.currentThread().getThreadGroup();
-//		Thread [] th05=new MyThread[group.activeCount()];
-//		group.enumerate(th05);
-//		
-//		for(Thread t:th05) {
-//			System.out.println("abc - abc "+t.getName());
-//		}
+		ThreadGroup group=Thread.currentThread().getThreadGroup().getParent();
+		System.out.println(group.getName());
+		ThreadGroup [] th05=new ThreadGroup[group.activeGroupCount()];
+		group.enumerate(th05);
+ 		
+		for(ThreadGroup t:th05) {
+			System.out.println("abc - abc "+t.getName());
+		}
+		
+		
+		Thread [] th06=new Thread[group.activeCount()];
+		
+		 group.enumerate(th06);
+		 for(Thread th:th06) {
+			 System.out.println(th.getName());
+		 }
 		
 		
 	}
